@@ -16,7 +16,6 @@
 
       body {
         font-family: 'Oswald', sans-serif;
-        font-weight: bold;
 
         margin: 0;
         -webkit-transform-origin: 0% 0%;
@@ -30,18 +29,7 @@
         transform:          translate(1080px, 0) rotate(90deg);
       }
 
-      h1 {
-        color: red;
-        position: absolute;
-        top: 0; left: 0;
-        font-size: 72pt;
-        z-index: 100;
-        padding: 0 0.5em;
-
-        text-shadow: 4px 4px #000000;
-      }
-
-      #credit {
+      .info {
         color: black;
         position: absolute;
         top: 980px; left: 0;
@@ -52,6 +40,10 @@
         text-align: center;
         padding: 0.5em;
       }
+
+      #caption {
+        font-weight: bold;
+      }
 		</style>
 
     <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
@@ -59,8 +51,7 @@
 	</head>
 
 	<body>
-		<h1 id="caption">Loading...</h1>
-		<div id="credit">Loading...</div>
+		<div class="info"><span id="caption">Loading...</span><span id="credit"></span></div>
 		<iframe id="portal" width="1920" height="1080" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 		<script>
@@ -75,7 +66,7 @@
         }
         portal.src = data[cur]["URL"];
         caption.innerText = data[cur]["Caption"];
-        credit.innerText = "by " + data[cur]["Name"];
+        credit.innerText = " – by " + data[cur]["Name"];
       };
 
       d3.csv(CSV_URL).then(function(d) {
