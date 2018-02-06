@@ -34,6 +34,9 @@
         z-index: 100;
       }
 		</style>
+
+    <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
+    <script src="https://d3js.org/d3-fetch.v1.min.js"></script>
 	</head>
 
 	<body>
@@ -41,27 +44,25 @@
 		<iframe id="portal" width="1920" height="1080" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 		<script>
-      var data = [
-        {url: "https://www.youtube.com/embed/p5mu_febWXg?rel=0&controls=0&showinfo=0&autoplay=true",
-          caption: "BEARS!!!!!!!"},
-        {url: "https://www.youtube.com/embed/a4AiosQFyU8?rel=0&controls=0&showinfo=0&autoplay=true",
-          caption: "BIRDS!!!!"} ,
-        {url: "https://www.youtube.com/embed/m9VO7X_q9nw?rel=0&controls=0&showinfo=0&autoplay=true",
-          caption: "KITTENS!!!!!!!"}
-      ];
+      var CYCLE_INTERVAL = 60000; // ms
 
       var cur = 0;
+      var data = [];
       var update = function() {
         cur++;
         if (cur >= data.length) {
           cur = 0;
         }
-        portal.src = data[cur].url;
-        caption.innerText = data[cur].caption;
+        portal.src = data[cur]["URL"];
+        caption.innerText = data[cur]["Caption"] + " (by " + data[cur]["Name"] + ")";
       };
 
-      update();
-      window.setInterval(update, 60000);
+      d3.csv(CSV_URL).then(function(d) {
+        data = d;  
+        update();
+        window.setInterval(update, CYCLE_INTERVAL);
+        // TODO: Watch CSV for changes
+      });
 		</script>
 	</body>
 </html>
