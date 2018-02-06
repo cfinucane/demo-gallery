@@ -1,68 +1,68 @@
 <!doctype html>
 <html class="no-js" lang="">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<style>
-html {
-  line-height: 1.15; /* 1 */
-  -ms-text-size-adjust: 100%; /* 2 */
-  -webkit-text-size-adjust: 100%; /* 2 */
-}
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<title></title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<style>
+      html {
+        line-height: 1.15;
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+      }
 
+      body {
+        margin: 0;
+        -webkit-transform-origin: 0% 0%;
+        -moz-transform-origin: 0% 0%;
+        -o-transform-origin: 0% 0%;
+        transform-origin: 0% 0%;
+        -moz-transform:     translate(1080px, 0) rotate(90deg);
+        -o-transform:       translate(1080px, 0) rotate(90deg);
+        -webkit-transform:  translate(1080px, 0) rotate(90deg);
+        -ms-transform:      translate(1080px, 0) rotate(90deg);
+        transform:          translate(1080px, 0) rotate(90deg);
+      }
 
-body {
-  margin: 0;
--webkit-transform-origin: 0% 0%;
--moz-transform-origin: 0% 0%;
--o-transform-origin: 0% 0%;
-transform-origin: 0% 0%;
-    -moz-transform:     translate(1080px, 0) rotate(90deg);
-    -o-transform:       translate(1080px, 0) rotate(90deg);
-    -webkit-transform:  translate(1080px, 0) rotate(90deg);
-    -ms-transform:      translate(1080px, 0) rotate(90deg);
-    transform:          translate(1080px, 0) rotate(90deg);
-}
+      h1 {
+        color: red;
+        position: absolute;
+        top: 0; left: 0;
+        font-size: 72pt;
+        z-index: 100;
+      }
+		</style>
+	</head>
 
-h1 {
-	color: red;
-	position: absolute;
-	top: 0; left: 0;
-	font-size: 72pt;
-	z-index: 100;
+	<body>
+		<h1 id="caption">Loading...</h1>
+		<iframe id="portal" width="1920" height="1080" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-}
+		<script>
+      var data = [
+        {url: "https://www.youtube.com/embed/p5mu_febWXg?rel=0&controls=0&showinfo=0&autoplay=true",
+          caption: "BEARS!!!!!!!"},
+        {url: "https://www.youtube.com/embed/a4AiosQFyU8?rel=0&controls=0&showinfo=0&autoplay=true",
+          caption: "BIRDS!!!!"} ,
+        {url: "https://www.youtube.com/embed/m9VO7X_q9nw?rel=0&controls=0&showinfo=0&autoplay=true",
+          caption: "KITTENS!!!!!!!"}
+      ];
 
-</style>
-    </head>
-    <body>
-	    <h1 id="caption"> BEARSSS!!!! </h1>
-	    <iframe id="portal" width="1920" height="1080" src="https://www.youtube.com/embed/p5mu_febWXg?rel=0&controls=0&showinfo=0&autoplay=true" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-	    <!--    <iframe width="1080px" height="1920px" src="https://www.eartheclipse.com/wp-content/uploads/2017/06/frog-red-eyed-tree-amphibian-tropical-rainforest.jpg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>-->
-	    <script>
-		var data = [
-{url: "https://www.youtube.com/embed/p5mu_febWXg?rel=0&controls=0&showinfo=0&autoplay=true",
-	caption: "BEARS!!!!!!!"},
-{url: "https://www.youtube.com/embed/a4AiosQFyU8?rel=0&controls=0&showinfo=0&autoplay=true",
-	caption: "BIRDS!!!!"} ,
-{url: "https://www.youtube.com/embed/m9VO7X_q9nw?rel=0&controls=0&showinfo=0&autoplay=true",
-	caption: "KITTENS!!!!!!!"}
-		];
+      var cur = 0;
+      var update = function() {
+        cur++;
+        if (cur >= data.length) {
+          cur = 0;
+        }
+        portal.src = data[cur].url;
+        caption.innerText = data[cur].caption;
+      };
 
-		var cur = 0;
-		window.setInterval(function() {
-			cur++;
-			if (cur >= data.length) {
-				cur = 0;
-			}
-			portal.src = data[cur].url;
-			caption.innerText = data[cur].caption;
-		}, 60000);
-		
-	    </script>
-    </body>
+      update();
+      window.setInterval(update, 60000);
+		</script>
+	</body>
 </html>
 
