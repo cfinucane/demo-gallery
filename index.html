@@ -15,11 +15,10 @@
       }
 
       body {
-        font-family: 'Oswald', sans-serif;
-
         margin: 0;
         transform-origin: 0% 0%;
-        transform:          translate(1080px, 0) rotate(90deg);
+        transform: translate(1080px, 0) rotate(90deg);
+        font-family: 'Oswald', sans-serif;
       }
 
       .info {
@@ -52,20 +51,26 @@
 
       var cur = 0;
       var data = [];
-      var update = function() {
+
+      function update() {
+        portal.src = data[cur]["URL"];
+        caption.innerText = data[cur]["Caption"];
+        credit.innerText = " – by " + data[cur]["Name"];
+      }
+
+      function advance() {
         cur++;
         if (cur >= data.length) {
           cur = 0;
         }
-        portal.src = data[cur]["URL"];
-        caption.innerText = data[cur]["Caption"];
-        credit.innerText = " – by " + data[cur]["Name"];
-      };
+
+        update();
+      }
 
       d3.csv(CSV_URL).then(function(d) {
         data = d;  
         update();
-        window.setInterval(update, CYCLE_INTERVAL);
+        window.setInterval(advance, CYCLE_INTERVAL);
         // TODO: Watch CSV for changes
       });
 		</script>
