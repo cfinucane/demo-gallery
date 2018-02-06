@@ -47,32 +47,44 @@
 		<iframe id="portal" width="1920" height="1080" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 		<script>
-      var CYCLE_INTERVAL = 60000; // ms
+      var FETCH_INTERVAL = 60000; // how often to check the spreadsheet for changes, in ms
+      var CYCLE_INTERVAL = 10000; // how often to cycle the display, in ms
 
       var cur = 0;
-      var data = [];
+      var galleryList = null;
+
+      function checkList() {
+        d3.csv(CSV_URL).then(function(data) {
+          var initialCheck = (galleryList === null);
+
+          // Update global list
+          galleryList = data;  
+
+          if (initialCheck) {
+            // Kick off the slideshow
+            update();
+            window.setInterval(advance, CYCLE_INTERVAL);
+          }
+        });
+      }
 
       function update() {
-        portal.src = data[cur]["URL"];
-        caption.innerText = data[cur]["Caption"];
-        credit.innerText = " – by " + data[cur]["Name"];
+        portal.src = galleryList[cur]["URL"];
+        caption.innerText = galleryList[cur]["Caption"];
+        credit.innerText = " – by " + galleryList[cur]["Name"];
       }
 
       function advance() {
         cur++;
-        if (cur >= data.length) {
+        if (cur >= galleryList.length) {
           cur = 0;
         }
 
         update();
       }
 
-      d3.csv(CSV_URL).then(function(d) {
-        data = d;  
-        update();
-        window.setInterval(advance, CYCLE_INTERVAL);
-        // TODO: Watch CSV for changes
-      });
+      checkList();
+      window.setInterval(checkList, FETCH_INTERVAL);
 		</script>
 	</body>
 </html>
