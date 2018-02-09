@@ -54,18 +54,20 @@
       var galleryList = null;
 
       function checkList() {
-        d3.csv(CSV_URL).then(function(data) {
-          var initialCheck = (galleryList === null);
+        d3.text("csvUrl.txt")
+          .then(d3.csv)
+          .then(function(data) {
+            var initialCheck = (galleryList === null);
 
-          // Update global list
-          galleryList = data;  
+            // Update global list
+            galleryList = data;  
 
-          if (initialCheck) {
-            // Kick off the slideshow
-            update();
-            window.setInterval(advance, CYCLE_INTERVAL);
-          }
-        });
+            if (initialCheck) {
+              // Kick off the slideshow
+              update();
+              window.setInterval(advance, CYCLE_INTERVAL);
+            }
+          });
       }
 
       function update() {
